@@ -65,7 +65,7 @@ function create() {
     stars.enableBody = true;
 
     //  The score
-    // scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
@@ -133,7 +133,7 @@ function collectStar (player, star) {
 
     //  Add and update the score
     score += 10;
-    // scoreText.text = 'Score: ' + score;
+    scoreText.text = 'Score: ' + score;
 
 }
 
@@ -143,7 +143,7 @@ function hitWorldBounds (sprite) {
 
     sprite.kill();
 
-    // scoreText.text = 'You\'re dead.'
+    scoreText.text = 'You\'re dead.'
     
 }
 
