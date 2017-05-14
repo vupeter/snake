@@ -50,13 +50,15 @@ function create() {
     player.animations.add('up', [4], 1, true);
     player.animations.add('down', [4], 1, true);
 
+    player.body.collideWorldBounds = true;
+
     //  By default the Signal is empty, so we create it here:
     player.body.onWorldBounds = new Phaser.Signal();
 
     //  And then listen for it
-    player.body.onWorldBounds.add(hitWorldBounds, this);
-
-    player.body.collideWorldBounds = true;
+    player.body.onWorldBounds.add(function(sprite){
+        console.log('please...')
+    }, this);
 
     //  Finally some stars to collect
     stars = game.add.group();
@@ -138,8 +140,6 @@ function collectStar (player, star) {
 }
 
 function hitWorldBounds (sprite) {
-
-    console.log('hitting')
 
     sprite.kill();
 
