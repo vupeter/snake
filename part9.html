@@ -65,7 +65,8 @@ function create() {
     stars.enableBody = true;
 
     //  The score
-    scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
+    var style = { fontSize: '32px', fill: '#fff', align:"left",boundsAlignH: "top",boundsAlignV:"top" };
+    scoreText = game.add.text(16, 16, 'Score: 0', style);
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
