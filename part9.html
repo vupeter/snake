@@ -56,6 +56,8 @@ function create() {
     //  And then listen for it
     player.body.onWorldBounds.add(hitWorldBounds, this);
 
+    player.body.collideWorldBounds = true;
+
     //  Finally some stars to collect
     stars = game.add.group();
 
