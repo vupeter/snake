@@ -38,7 +38,7 @@ var scoreText;
 
 function create() {
 
-    game.time.desiredFps = 5;
+    game.time.desiredFps = 10;
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -85,6 +85,7 @@ function update() {
     }
 
     if(playerTail[0]){
+        console.log()
         playerTail[0].setTo(player.x, player.y);
     }
 
