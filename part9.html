@@ -56,9 +56,7 @@ function create() {
     player.body.onWorldBounds = new Phaser.Signal();
 
     //  And then listen for it
-    player.body.onWorldBounds.add(function(sprite, up, down, left, right){
-        console.log('hello');
-    }, this);
+    player.body.onWorldBounds.add(hitWorldBounds, this);
 
     //  Finally some stars to collect
     stars = game.add.group();
