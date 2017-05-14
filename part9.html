@@ -67,11 +67,11 @@ function create() {
     player = game.add.sprite(32, game.world.height - 150, 'dude');
 
     //  We need to enable physics on the player
-    game.physics.arcade.enable(player);
+    // game.physics.arcade.enable(player);
 
     //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
+    // player.body.bounce.y = 0.2;
+    // player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
 
     //  Our two animations, walking left and right.
@@ -85,10 +85,10 @@ function create() {
     stars.enableBody = true;
 
     //  Here we'll create 12 of them evenly spaced apart
-    for (var i = 0; i < 12; i++)
+    for (var i = 0; i < 30; i++)
     {
         //  Create a star inside of the 'stars' group
-        var star = stars.create(i * 70, 0, 'star');
+        var star = stars.create(i * 30, 0, 'star');
 
         //  Let gravity do its thing
         star.body.gravity.y = 300;
