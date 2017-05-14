@@ -29,6 +29,7 @@ var delay = 500;
 
 var player;
 var playerTail = [];
+var queue = [];
 var platforms;
 var cursors;
 
@@ -81,12 +82,13 @@ function create() {
 function update() {
 
     for(var i=1;i<playerTail.length;i++){
-        playerTail[i].setTo(playerTail[i-1].x, playerTail[i-1].y);
+        playerTail[i].body.x = playerTail[i-1].body.x;
+        playerTail[i].body.y = playerTail[i-1].body.y;
     }
 
     if(playerTail[0]){
-        console.log(playerTail[0])
-        playerTail[0].setTo(player.x, player.y);
+        playerTail[0].body.x = player.x;
+        playerTail[0].body.y = player.y;
     }
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
