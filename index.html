@@ -192,12 +192,12 @@ function hitWorldBounds (sprite) {
 function tailElongate(){
 
     if(playerTail.length){
-        for (var i = playerTail.length-1; i <= playerTail.length-1 + tailSpacer; i++)
+        for (var i = playerTail.length; i <= playerTail.length + tailSpacer; i++)
         {
             snakePath[i] = new Phaser.Point(playerTail[playerTail.length-1].body.x, playerTail[playerTail.length-1].body.y);
         }
     } else {
-        for (var i = playerTail.length-1; i <= playerTail.length-1 + tailSpacer; i++)
+        for (var i = playerTail.length; i <= playerTail.length + tailSpacer; i++)
         {
             snakePath[i] = new Phaser.Point(player.x, player.y);
         }
