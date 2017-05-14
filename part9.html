@@ -38,6 +38,8 @@ function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    game.stage.backgroundColor = "#fff";
+
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'dude');
 
@@ -65,7 +67,7 @@ function create() {
     stars.enableBody = true;
 
     //  The score
-    scoreText = game.add.text(16, 16, 'dead', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 16, 'dead');
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
