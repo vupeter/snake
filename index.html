@@ -26,6 +26,7 @@ function preload() {
 }
 
 var delay = 1000;
+var count = 0;
 
 var player;
 var playerTail = [];
@@ -83,6 +84,9 @@ function create() {
 }
 
 function update() {
+
+    count++;
+    if(count%10 === 0) tailElongate();
 
     for(var i=playerTail.length-1;i>0;i--){
         playerTail[i].body.x = playerTail[i-1].body.x;
@@ -152,17 +156,8 @@ function collectStar (player, star) {
     score += 1;
     scoreText.text = 'Length: ' + score;
 
-    var location = {};
-
-    if(playerTail.length){
-        location.x = playerTail[playerTail.length-1].x;
-        location.y = playerTail[playerTail.length-1].y;
-    } else {
-        location = {x: player.body.x, y: player.body.y}
-    }
-    setTimeout(function(){
-        playerTail.push(tail.create(location.x, location.y, 'dude'));
-    }, delay);
+    queue.push({x: player.body.x, y: player.body.y})
+    
 
 }
 
@@ -174,6 +169,12 @@ function hitWorldBounds (sprite) {
 
     scoreText.text = 'You\'re dead!'
     
+}
+
+function tailElongate(){
+    if(!queue.length) return;
+    var next = queue.shift();
+    playerTail.push(tail.create(next.x, next.y, 'dude'));
 }
 
 var starSpawn = setInterval(function(){
