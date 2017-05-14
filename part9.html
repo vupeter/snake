@@ -33,10 +33,6 @@ var stars;
 var score = 0;
 var scoreText;
 
-setInterval(function(){
-    var star = stars.create(Math.floor(Math.random*canvas.x), Math.floor(Math.random*canvas.y), 'star');
-}, 2000)
-
 function create() {
 
     //  We're going to be using physics, so enable the Arcade Physics system
@@ -57,10 +53,10 @@ function create() {
     player.animations.add('down', [4], 1, true);
 
     //  By default the Signal is empty, so we create it here:
-    face.body.onWorldBounds = new Phaser.Signal();
+    player.body.onWorldBounds = new Phaser.Signal();
 
     //  And then listen for it
-    face.body.onWorldBounds.add(hitWorldBounds, this);
+    player.body.onWorldBounds.add(hitWorldBounds, this);
 
     //  Finally some stars to collect
     stars = game.add.group();
@@ -156,6 +152,10 @@ function hitWorldBounds (sprite) {
     scoreText.text = 'You\'re dead.'
     
 }
+
+setInterval(function(){
+    var star = stars.create(Math.floor(Math.random*canvas.x), Math.floor(Math.random*canvas.y), 'star');
+}, 2000)
 
 </script>
 
