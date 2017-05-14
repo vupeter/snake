@@ -86,6 +86,7 @@ function create() {
 function update() {
 
     count++;
+    console.log(count);
     if(queue.length && count == queue[0].when) tailElongate();
 
     if(count%delay === 0) {
@@ -158,6 +159,8 @@ function collectStar (player, star) {
     score += 1;
     scoreText.text = 'Length: ' + score;
 
+
+    console.log('TAIL ELONGATE: ' + (count + playerTail.length * delay))
     queue.push({x: player.body.x, y: player.body.y, when: count + playerTail.length * delay})
     
 
