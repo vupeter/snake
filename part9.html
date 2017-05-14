@@ -87,14 +87,14 @@ function update() {
         player.body.velocity.y = 0;
 
         //  Move to the left
-        player.body.velocity.x = -150;
+        player.body.velocity.x = -300;
 
         player.animations.play('left');
     }
     else if (cursors.right.isDown)
     {
         //  Move to the right
-        player.body.velocity.x = 150;
+        player.body.velocity.x = 300;
 
         player.animations.play('right');
     }
@@ -105,7 +105,7 @@ function update() {
         player.body.velocity.y = 0;
         
         //  Move to the right
-        player.body.velocity.y = -150;
+        player.body.velocity.y = -300;
 
         player.animations.play('up');
     }
@@ -116,20 +116,9 @@ function update() {
         player.body.velocity.y = 0;
         
         //  Move to the right
-        player.body.velocity.y = 150;
+        player.body.velocity.y = 300;
 
         player.animations.play('down');
-    }
-    else
-    {
-        //  Reset the players velocity (movement)
-        player.body.velocity.x = 0;
-        player.body.velocity.y = 0;
-        
-        //  Stand still
-        player.animations.stop();
-
-        player.frame = 4;
     }
 
 }
@@ -146,6 +135,8 @@ function collectStar (player, star) {
 }
 
 function hitWorldBounds (sprite) {
+
+    console.log('hitting');
 
     sprite.kill();
 
