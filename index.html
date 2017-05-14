@@ -28,12 +28,8 @@ function preload() {
 var delay = 1;
 var count = 0;
 
-var snakePath = [];
-
 var player;
 var playerTail = [];
-var tailSpacer = 5;
-
 var queue = [];
 var platforms;
 var cursors;
@@ -84,35 +80,23 @@ function create() {
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
-
-    for (var i = 0; i <= playerTail.length * tailSpacer; i++)
-    {
-        snakePath[i] = new Phaser.Point(player.x, player.y);
-    }
     
 }
 
 function update() {
 
     count++;
-
     if(queue.length && count == queue[0].when) tailElongate();
-
-    var part = snakePath.pop();
-
-    part.setTo(player.x, player.y);
-
-    snakePath.unshift(part);
 
     if(count%delay === 0) {
         for(var i=playerTail.length-1;i>0;i--){
-            playerTail[i].body.x = snakePath[i * tailSpacer].x;
-            playerTail[i].body.y = snakePath[i * tailSpacer].y;
+            playerTail[i].body.x = playerTail[i-1].body.x;
+            playerTail[i].body.y = playerTail[i-1].body.y;
         }
 
         if(playerTail[0]){
-            playerTail[0].body.x = snakePath[0].x;
-            playerTail[0].body.y = snakePath[0].y;
+            playerTail[0].body.x = player.x;
+            playerTail[0].body.y = player.y;
         }
     }
 
@@ -190,21 +174,6 @@ function hitWorldBounds (sprite) {
 }
 
 function tailElongate(){
-
-    if(playerTail.length){
-        for (var i = snakePath.length+1; i <= snakePath.length+1 + tailSpacer; i++)
-        {
-            snakePath[i] = new Phaser.Point(playerTail[playerTail.length-1].body.x, playerTail[playerTail.length-1].body.y);
-        }
-    } else {
-        for (var i = playerTail.length; i <= playerTail.length + tailSpacer; i++)
-        {
-            snakePath[i] = new Phaser.Point(player.x, player.y);
-        }
-    }
-
-    console.log(snakePath);
-
     var next = queue.shift();
     playerTail.push(tail.create(next.x, next.y, 'dude'));
 }
