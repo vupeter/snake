@@ -111,8 +111,8 @@ function update() {
         }
 
         if(playerTail[0]){
-            playerTail[0].body.x = snakePath[0].x;
-            playerTail[0].body.y = snakePath[0].y;
+            playerTail[0].body.x = snakePath[tailSpacer].x;
+            playerTail[0].body.y = snakePath[tailSpacer].y;
         }
     }
 
@@ -192,7 +192,7 @@ function hitWorldBounds (sprite) {
 function tailElongate(){
 
     if(playerTail.length){
-        for (var i = playerTail.length; i <= playerTail.length + tailSpacer; i++)
+        for (var i = playerTail.length; i <= playerTail.length + 1 + tailSpacer; i++)
         {
             snakePath[i] = new Phaser.Point(playerTail[playerTail.length-1].body.x, playerTail[playerTail.length-1].body.y);
         }
