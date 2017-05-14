@@ -28,8 +28,12 @@ function preload() {
 var delay = 1;
 var count = 0;
 
+var snakePath = [];
+
 var player;
 var playerTail = [];
+var tailSpacer = 10;
+
 var queue = [];
 var platforms;
 var cursors;
@@ -85,13 +89,19 @@ function create() {
 
 function update() {
 
-    if(queue.length && count == queue[0].when) tailElongate();
     count++;
+
+    if(queue.length && count == queue[0].when) tailElongate();
+
+    for (var i = 0; i <= playerTail.length * tailSpacer; i++)
+    {
+        snakePath[i] = new Phaser.Point(400, 300);
+    }
 
     if(count%delay === 0) {
         for(var i=playerTail.length-1;i>0;i--){
-            playerTail[i].body.x = playerTail[i-1].body.x;
-            playerTail[i].body.y = playerTail[i-1].body.y;
+            playerTail[i].body.x = snakePath[i * tailSpacer].x;
+            playerTail[i].body.y = snakePath[i * tailSpacer].y;
         }
 
         if(playerTail[0]){
@@ -158,8 +168,6 @@ function collectStar (player, star) {
     score += 1;
     scoreText.text = 'Length: ' + score;
 
-
-    console.log('TAIL ELONGATE: ' + (count + playerTail.length * delay))
     queue.push({x: player.body.x, y: player.body.y, when: count + 1 + playerTail.length * delay})
     
 
