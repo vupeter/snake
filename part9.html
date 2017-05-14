@@ -14,12 +14,12 @@
 
 <script type="text/javascript">
 
-var game = new Phaser.Game(1200, 800, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var canvas = {x: 1200, y: 800};
+
+var game = new Phaser.Game(canvas.x, canvas.y, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 function preload() {
 
-    game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
 
@@ -33,32 +33,14 @@ var stars;
 var score = 0;
 var scoreText;
 
+setInterval(function(){
+    var star = stars.create(Math.floor(Math.random*canvas.x), Math.floor(Math.random*canvas.y), 'star');
+}, 2000)
+
 function create() {
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    //  A simple background for our game
-    game.add.sprite(0, 0, 'sky');
-
-    //  The platforms group contains the ground and the 2 ledges we can jump on
-    platforms = game.add.group();
-
-    //  We will enable physics for any object that is created in this group
-    platforms.enableBody = true;
-
-    // Set corners
-    var ground1 = platforms.create(0, game.world.height - 5, 'ground');
-    // var ground2 = platforms.create(0, game.world.height - 5, 'ground');
-    // var ground3 = platforms.create(0, game.world.height - 5, 'ground');
-    var ground4 = platforms.create(game.world.height -5, game.world.height, 'ground');
-
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground1.scale.setTo(2, 2);
-    // ground2.scale.setTo(2, 2);
-    // ground3.scale.setTo(2, 2);
-    ground4.scale.setTo(2, 2);
-
 
     // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'dude');
@@ -74,14 +56,17 @@ function create() {
     player.animations.add('up', [4], 1, true);
     player.animations.add('down', [4], 1, true);
 
+    //  By default the Signal is empty, so we create it here:
+    face.body.onWorldBounds = new Phaser.Signal();
+
+    //  And then listen for it
+    face.body.onWorldBounds.add(hitWorldBounds, this);
+
     //  Finally some stars to collect
     stars = game.add.group();
 
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
-
-    // Star creation
-    // var star = stars.create(i * 30, 0, 'star');
 
     //  The score
     scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
@@ -95,7 +80,6 @@ function update() {
 
     //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(stars, platforms);
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
@@ -163,6 +147,14 @@ function collectStar (player, star) {
     score += 10;
     scoreText.text = 'Score: ' + score;
 
+}
+
+function hitWorldBounds (sprite) {
+
+    sprite.kill();
+
+    scoreText.text = 'You\'re dead.'
+    
 }
 
 </script>
