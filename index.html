@@ -28,6 +28,8 @@ function preload() {
 var delay = 1000;
 var count = 0;
 
+var elongate = 0;
+
 var player;
 var playerTail = [];
 var queue = [];
@@ -86,16 +88,18 @@ function create() {
 function update() {
 
     count++;
-    if(count%10 === 0) tailElongate();
+    if(queue.length && count == queue[0].when) tailElongate();
 
-    for(var i=playerTail.length-1;i>0;i--){
-        playerTail[i].body.x = playerTail[i-1].body.x;
-        playerTail[i].body.y = playerTail[i-1].body.y;
-    }
+    if(count%2 === 0) {
+        for(var i=playerTail.length-1;i>0;i--){
+            playerTail[i].body.x = playerTail[i-1].body.x;
+            playerTail[i].body.y = playerTail[i-1].body.y;
+        }
 
-    if(playerTail[0]){
-        playerTail[0].body.x = player.x;
-        playerTail[0].body.y = player.y;
+        if(playerTail[0]){
+            playerTail[0].body.x = player.x;
+            playerTail[0].body.y = player.y;
+        }
     }
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
@@ -156,7 +160,7 @@ function collectStar (player, star) {
     score += 1;
     scoreText.text = 'Length: ' + score;
 
-    queue.push({x: player.body.x, y: player.body.y})
+    queue.push({x: player.body.x, y: player.body.y, when: count + playerTail.length()*2})
     
 
 }
@@ -172,7 +176,6 @@ function hitWorldBounds (sprite) {
 }
 
 function tailElongate(){
-    if(!queue.length) return;
     var next = queue.shift();
     playerTail.push(tail.create(next.x, next.y, 'dude'));
 }
