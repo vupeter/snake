@@ -65,7 +65,7 @@ function create() {
     stars.enableBody = true;
 
     //  The score
-    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#fff' });
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
@@ -154,7 +154,7 @@ function hitWorldBounds (sprite) {
 }
 
 setInterval(function(){
-    var star = stars.create(Math.floor(Math.random*canvas.x), Math.floor(Math.random*canvas.y), 'star');
+    var star = stars.create(Math.floor(Math.random()*canvas.x), Math.floor(Math.random()*canvas.y), 'star');
 }, 2000)
 
 </script>
