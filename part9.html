@@ -52,12 +52,6 @@ function create() {
     player.animations.add('up', [4], 1, true);
     player.animations.add('down', [4], 1, true);
 
-    //  By default the Signal is empty, so we create it here:
-    player.body.onWorldBounds = new Phaser.Signal();
-
-    //  And then listen for it
-    player.body.onWorldBounds.add(hitWorldBounds, this);
-
     //  Finally some stars to collect
     stars = game.add.group();
 
@@ -80,6 +74,10 @@ function update() {
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
 
+    if(player.body.touching.up || player.body.touching.down || player.body.touching.left || player.body.touching.right){
+        hitWorldBounds(player);
+    }
+
     if (cursors.left.isDown)
     {
         //  Reset the players velocity (movement)
@@ -93,6 +91,9 @@ function update() {
     }
     else if (cursors.right.isDown)
     {
+        //  Reset the players velocity (movement)
+        player.body.velocity.x = 0;
+        player.body.velocity.y = 0;
         //  Move to the right
         player.body.velocity.x = 300;
 
@@ -135,8 +136,6 @@ function collectStar (player, star) {
 }
 
 function hitWorldBounds (sprite) {
-
-    console.log('hitting');
 
     sprite.kill();
 
