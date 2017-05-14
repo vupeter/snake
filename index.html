@@ -32,7 +32,7 @@ var snakePath = [];
 
 var player;
 var playerTail = [];
-var tailSpacer = 10;
+var tailSpacer = 5;
 
 var queue = [];
 var platforms;
@@ -112,7 +112,7 @@ function update() {
 
         if(playerTail[0]){
             playerTail[0].body.x = snakePath[0].x;
-            playerTail[0].body.y = snakePath[0].x;
+            playerTail[0].body.y = snakePath[0].y;
         }
     }
 
