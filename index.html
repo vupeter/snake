@@ -155,7 +155,7 @@ function collectStar (player, star) {
         location.x = playerTail[playerTail.length-1].x;
         location.y = playerTail[playerTail.length-1].y;
     } else {
-        location = {x: player.x, y: player.y}
+        location = {x: player.body.x, y: player.body.y}
     }
     setTimeout(function(){
         playerTail.push(game.add.sprite(location.x, location.y, 'dude'));
