@@ -25,7 +25,10 @@ function preload() {
 
 }
 
+var delay = 500;
+
 var player;
+var playerTail = [];
 var platforms;
 var cursors;
 
@@ -34,6 +37,8 @@ var score = 0;
 var scoreText;
 
 function create() {
+
+    game.time.desiredFps = 1;
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -66,7 +71,7 @@ function create() {
 
     //  The score
     var style = { fontSize: '32px', fill: '#fff', align:"left",boundsAlignH: "top",boundsAlignV:"top" };
-    scoreText = game.add.text(16, 16, 'Score: 0', style);
+    scoreText = game.add.text(16, 16, 'Length: 0', style);
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
@@ -75,8 +80,13 @@ function create() {
 
 function update() {
 
-    //  Collide the player and the stars with the platforms
-    game.physics.arcade.collide(player, platforms);
+    for(var i=1;i<playerTail.length;i++){
+        playerTail[i].setTo(playerTail[i-1].x, playerTail[i-1].y);
+    }
+
+    if(playerTail[0]){
+        playerTail[0].setTo(player.x, player.y);
+    }
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
@@ -133,8 +143,20 @@ function collectStar (player, star) {
     star.kill();
 
     //  Add and update the score
-    score += 10;
-    scoreText.text = 'Score: ' + score;
+    score += 1;
+    scoreText.text = 'Length: ' + score;
+
+    var location = {};
+
+    if(playerTail.length){
+        location.x = playerTail[playerTail.length-1].x;
+        location.y = playerTail[playerTail.length-1].y;
+    } else {
+        location = {x: player.x, y: player.y}
+    }
+    setTimeout(function(){
+        playerTail.push(game.add.sprite(location.x, location.y, 'dude'));
+    }, delay);
 
 }
 
