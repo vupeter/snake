@@ -84,6 +84,11 @@ function create() {
 
     //  Our controls.
     cursors = game.input.keyboard.createCursorKeys();
+
+    for (var i = 0; i <= playerTail.length * tailSpacer; i++)
+    {
+        snakePath[i] = new Phaser.Point(player.x, player.y);
+    }
     
 }
 
@@ -93,10 +98,11 @@ function update() {
 
     if(queue.length && count == queue[0].when) tailElongate();
 
-    for (var i = 0; i <= playerTail.length * tailSpacer; i++)
-    {
-        snakePath[i] = new Phaser.Point(player.x, player.y);
-    }
+    var part = snakePath.pop();
+
+    part.setTo(player.x, player.y);
+
+    snakePath.unshift(part);
 
     if(count%delay === 0) {
         for(var i=playerTail.length-1;i>0;i--){
@@ -184,6 +190,12 @@ function hitWorldBounds (sprite) {
 }
 
 function tailElongate(){
+
+    for (var i = playerTail.length-1; i <= playerTail.length-1 + tailSpacer; i++)
+    {
+        snakePath[i] = new Phaser.Point(playerTail[playerTail.length-1].body.x, playerTail[playerTail.length-1].body..y);
+    }
+
     var next = queue.shift();
     playerTail.push(tail.create(next.x, next.y, 'dude'));
 }
