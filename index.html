@@ -95,7 +95,7 @@ function update() {
 
     for (var i = 0; i <= playerTail.length * tailSpacer; i++)
     {
-        snakePath[i] = new Phaser.Point(400, 300);
+        snakePath[i] = new Phaser.Point(player.x, player.y);
     }
 
     if(count%delay === 0) {
@@ -105,8 +105,8 @@ function update() {
         }
 
         if(playerTail[0]){
-            playerTail[0].body.x = player.x;
-            playerTail[0].body.y = player.y;
+            playerTail[0].body.x = snakePath[0].x;
+            playerTail[0].body.y = snakePath[0].x;
         }
     }
 
