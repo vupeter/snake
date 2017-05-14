@@ -75,6 +75,7 @@ function update() {
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
 
     if(player.body.touching.up || player.body.touching.down || player.body.touching.left || player.body.touching.right){
+        console.log('hello?')
         hitWorldBounds(player);
     }
 
