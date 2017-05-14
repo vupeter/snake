@@ -191,9 +191,16 @@ function hitWorldBounds (sprite) {
 
 function tailElongate(){
 
-    for (var i = playerTail.length-1; i <= playerTail.length-1 + tailSpacer; i++)
-    {
-        snakePath[i] = new Phaser.Point(playerTail[playerTail.length-1].body.x, playerTail[playerTail.length-1].body.y);
+    if(playerTail.length){
+        for (var i = playerTail.length-1; i <= playerTail.length-1 + tailSpacer; i++)
+        {
+            snakePath[i] = new Phaser.Point(playerTail[playerTail.length-1].body.x, playerTail[playerTail.length-1].body.y);
+        }
+    } else {
+        for (var i = playerTail.length-1; i <= playerTail.length-1 + tailSpacer; i++)
+        {
+            snakePath[i] = new Phaser.Point(player.x, player.y);
+        }
     }
 
     var next = queue.shift();
