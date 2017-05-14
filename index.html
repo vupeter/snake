@@ -67,6 +67,9 @@ function create() {
     //  Finally some stars to collect
     stars = game.add.group();
 
+    tail = game.add.group();
+    tail.enableBody = true;
+
     //  We will enable physics for any star that is created in this group
     stars.enableBody = true;
 
@@ -158,7 +161,7 @@ function collectStar (player, star) {
         location = {x: player.body.x, y: player.body.y}
     }
     setTimeout(function(){
-        playerTail.push(game.add.sprite(location.x, location.y, 'dude'));
+        playerTail.push(tail.create(location.x, location.y, 'dude'));
     }, delay);
 
 }
