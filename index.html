@@ -166,7 +166,10 @@ function collectStar (player, star) {
     score += 1;
     scoreText.text = 'Length: ' + score;
 
-    queue.push({x: playerTail[playerTail.length-1].body.x, y: playerTail[playerTail.length-1].body.y, when: count + 1 + delay})
+    var location = playerTail[playerTail.length-1];
+    if(!playerTail.length) location = player;
+
+    queue.push({x: location.body.x, y: location.body.y, when: count + 1 + delay})
     
 
 }
