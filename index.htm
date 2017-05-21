@@ -35,9 +35,6 @@
             }
         }
 
-        // array which will contain all crates
-        var crates = [];
-
         // size of a tile, in pixels
         var tileSize = 40;
 
@@ -67,31 +64,37 @@
         function onCreate() {
             // going full screen with the function defined at line 32
             goFullScreen();
-            // adding two groups to the game. The fist group is called fixedGroup, it will contain
-            // all non-moveable elements (everything but crates and player).
-            // Then we add movingGroup which will contain moveable elements (crates and player)
+
             var fixedGroup = game.add.group();
             var movingGroup = game.add.group();
             // variable used for tile creation
-            var tile
-            // looping trough all level rows
-            for (var i = 0; i < level.length; i++) {
-                // creation of 2nd dimension of crates array
-                crates[i] = [];
-                // looping through all level columns
-                for (var j = 0; j < level[i].length; j++) {
-                    // by default, there are no crates at current level position, so we set to null its
-                    // array entry
-                    crates[i][j] = null;
-                    // what do we have at row j, col i?
-                    switch (level[j][i]) {
-
-                    }
-                }
-            }
+            var tile;
+            
             // once the level has been created, we wait for the player to touch or click, then we call
             // beginSwipe function
             game.input.onDown.add(beginSwipe, this);
+        }
+
+        var count = 0;
+
+        function update(){
+
+            count++;
+            if(count%100 == 0){
+                level[Math.floor(Math.random()*dimension)][Math.floor(Math.random()*dimension)].push(true);
+            }
+
+            for (var i = 0; i < level.length; i++) {
+
+                // looping through all level columns
+                for (var j = 0; j < level[i].length; j++) {
+
+                    if(level[i][j].length){
+                        
+                    }
+
+                }
+            }
         }
 
         // when the player begins to swipe we only save mouse/finger coordinates, remove the touch/click

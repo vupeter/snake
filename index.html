@@ -38,6 +38,8 @@ var stars;
 var score = 0;
 var scoreText;
 
+var headPos = {};
+
 function create() {
 
     game.time.desiredFps = 20;
@@ -88,16 +90,19 @@ function update() {
     count++;
     if(queue.length && count == queue[0].when) tailElongate();
 
-    if(count%delay === 0) {
+    if(count%delay === 15) {
         for(var i=playerTail.length-1;i>0;i--){
             playerTail[i].body.x = playerTail[i-1].body.x;
             playerTail[i].body.y = playerTail[i-1].body.y;
         }
 
         if(playerTail[0]){
-            playerTail[0].body.x = player.x;
-            playerTail[0].body.y = player.y;
+            playerTail[0].body.x = headPos.x;
+            playerTail[0].body.y = headPos.y;
         }
+
+        headPos.x = player.x;
+        headPos.y = player.y
     }
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
