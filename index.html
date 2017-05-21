@@ -25,7 +25,7 @@ function preload() {
 
 }
 
-var delay = 4;
+var delay = 3;
 var count = 0;
 
 var player;
@@ -107,6 +107,7 @@ function update() {
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     game.physics.arcade.overlap(player, stars, collectStar, null, this);
+    game.physics.arcade.overlap(player, tail, hitWorldBounds, null, this);
 
     if (cursors.left.isDown)
     {
@@ -163,7 +164,7 @@ function collectStar (player, star) {
     score += 1;
     scoreText.text = 'Length: ' + score;
 
-    queue.push({x: player.body.x, y: player.body.y, when: count + 1 + playerTail.length * delay})
+    queue.push({x: playerTail[playerTail.length-1].body.x, y: playerTail[playerTail.length-1].body.y, when: count + 1 + delay})
     
 
 }
