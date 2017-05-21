@@ -90,6 +90,8 @@ function update() {
     count++;
     if(queue.length && count == queue[0].when) tailElongate();
 
+    if(!stars.length) stars.create(Math.floor(Math.random()*canvas.x), Math.floor(Math.random()*canvas.y), 'star');
+
     if(count%delay === 0) {
         for(var i=playerTail.length-1;i>0;i--){
             playerTail[i].body.x = playerTail[i-1].body.x;
@@ -173,8 +175,6 @@ function hitWorldBounds (sprite) {
 
     sprite.kill();
 
-    clearInterval(starSpawn)
-
     scoreText.text = 'You\'re dead!'
     
 }
@@ -183,10 +183,6 @@ function tailElongate(){
     var next = queue.shift();
     playerTail.push(tail.create(next.x, next.y, 'dude'));
 }
-
-var starSpawn = setInterval(function(){
-    var star = stars.create(Math.floor(Math.random()*canvas.x), Math.floor(Math.random()*canvas.y), 'star');
-}, 2000)
 
 </script>
 
