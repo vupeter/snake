@@ -20,7 +20,7 @@ function makeid() {
 var color = getRandomColor();
 var userId = makeid();
 
-var socket = new WebSocket("ws://localhost:7331", );
+var socket = new WebSocket("ws://cryndex.io:7331", );
 
 socket.onopen = function (event) {
     socket.send(JSON.stringify({color, userId, create: true}));
